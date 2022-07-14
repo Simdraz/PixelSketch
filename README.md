@@ -1,1 +1,1 @@
-# PixelSketch
+This is a nice little Pixel Sketcher :D
