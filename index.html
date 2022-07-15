@@ -9,8 +9,24 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-        
-    <div id="sketchContainer"></div>
+    <nav role="navigation">
+      <ul>
+        <!-- <li><a href="#">One</a></li> -->
+        <li><a href="#">Select grid size</a>
+          <ul class="dropdown">
+            <li><a>16x16</a></li>
+            <li><a>32x32</a></li>
+            <li><a>64x64</a></li>
+            <li><a>128x128</a></li>
+          </ul>
+        </li>
+        <!-- <li><a href="#">Three</a></li> -->
+      </ul>
+    </nav>
+
+    <section>
+      <div id="sketchContainer"></div>
+    </section>
 
     <script src="main.js" async defer></script>
   </body>
