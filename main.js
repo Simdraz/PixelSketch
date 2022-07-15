@@ -1,8 +1,11 @@
 const sketchDiv = document.querySelector('#sketchContainer');
 const drop = document.querySelector(".dropdown");
 const items = Array.from(drop.children)
+const rainbowBtn = document.querySelector('#rainbow');
 const currentColor = "#333333";
 const defaultSize = 8;
+let color = "black";
+let rainbowTrigger = 0;
 
 // Main
 items.forEach(item => item.addEventListener('click', createGrid))
@@ -11,15 +14,20 @@ items.forEach(item => item.addEventListener('click', createGrid))
 createGrid(defaultSize);
 
 let pixels = Array.from(document.querySelectorAll('.pixel'));
-setListeners();
+setListenersDraw();
+setListenersRainbow();
 sketchDiv.addEventListener('mouseleave', stopColor);
 
 
-// Setting events for drawing
+// Functions to set events
 
-function setListeners(){
+function setListenersDraw(){
   pixels.forEach(pixel => pixel.addEventListener('mousedown', colorPixel));
   pixels.forEach(pixel => pixel.addEventListener('mouseup', stopColor));
+}
+
+function setListenersRainbow(){
+  rainbowBtn.addEventListener('click', rainbowMode);
 }
 
 // Grid sizing functions
@@ -54,23 +62,44 @@ function createGrid (e) {
     }
 
     pixels = Array.from(document.querySelectorAll('.pixel'));
-    setListeners();
+    setListenersDraw();
   }
 }
 
 // Drawing functions
 
 function colorPixel (e) {
-  e. stopPropagation(); 
-  this.style.backgroundColor = "black";
+  e.stopPropagation();
+  this.style.backgroundColor = color;
   pixels.forEach(pixel => pixel.addEventListener('mouseover', onHover));
 }
 
 function onHover(e){
   e. stopPropagation(); 
-  this.style.backgroundColor = "black";
+  if (rainbowTrigger == 1) this.style.backgroundColor = `rgb(${random()},${random()},${random()})`;
+  else this.style.backgroundColor = color;
 }
 
 function stopColor (e) {
   pixels.forEach(pixel => pixel.removeEventListener('mouseover', onHover));
+}
+
+// Creating random number
+
+function random () {
+  const x = Math.floor(Math.random() * 256);
+  return x;
+}
+
+function rainbowMode (){
+  if (rainbowTrigger == 0) {
+    color = `rgb(${random()},${random()},${random()})`;
+    rainbowTrigger = 1;
+  }
+  else { 
+    color = "black";
+    rainbowTrigger = 0;
+  }
+  
+  rainbowBtn.classList.toggle('rainAct')
 }
